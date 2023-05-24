@@ -2,7 +2,8 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from marketXpress.models import * 
 from django.views.generic import *
-from rest_framework import viewsets, Response
+from rest_framework import viewsets
+from rest_framework.response import Response
 from marketXpress.serializers import *
 # from marketXpress.models import Customer, Product, Order, Category, Brand
 # from django.views.generic import View,ListView, DetailView
