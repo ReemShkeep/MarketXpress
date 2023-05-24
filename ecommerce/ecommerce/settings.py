@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -32,15 +33,19 @@ ALLOWED_HOSTS = ['0.0.0.0']
 # Application definition
 
 INSTALLED_APPS = [
-    # 'restframework',
-    'marketXpress',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'marketXpress.apps.MarketxpressConfig',
+    # or in this way direct the name of the app but this more practice 
+    # 'marketXpress',
+
 ]
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -57,7 +62,7 @@ ROOT_URLCONF = 'ecommerce.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR,'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -85,8 +90,20 @@ DATABASES = {
         'HOST': 'localhost',
         'PORT': '3306'
     }
-}
-
+    # ,"customer_db": {
+    #     'ENGINE': "django.db.backends.postgresql",
+    #     'NAME': 'ecommerce',
+    #     'USER': 'django',
+    #     'PASSWORD': 'passw0rd',
+    #     'HOST': '127.0.0.1',
+    #     'PORT': '5432'
+    #     # localhost and 127.0.0.1 are the same thing 
+    #     # if you need more sec and put your daTA on a different FILES not be shown to the other dev.
+    #     # "OPTIONS": {
+    #     #     "service": "my_service",
+    #     #     "passfile": ".my_pgpass",
+    #     },
+    }
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -130,3 +147,14 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+
+# Rest Framework
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ]
+}

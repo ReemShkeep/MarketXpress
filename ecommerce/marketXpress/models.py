@@ -3,14 +3,14 @@ from django.db import models
 
 # Create your models here.
 class Category(models.Model):
-    name = models.CharField(max_length=200, null=True)
+    name = models.CharField(max_length=200, null=True,verbose_name='Category Name')
     description = models.CharField(max_length=200, null=True)
     def __str__(self):
         return self.name
 
 
 class Brand(models.Model):
-    name = models.CharField(max_length=200, null=True)
+    name = models.CharField(max_length=200, null=True,verbose_name='Brand Name')
     brand_category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True)
     # image = models.ImageField(upload_to='brands/', null=True)
     def __str__(self):
@@ -19,8 +19,11 @@ class Brand(models.Model):
 
 
 class Product(models.Model):
-    name = models.CharField(max_length=200, null=True)
-    price = models.FloatField()
+    name = models.CharField(max_length=200, null=True,verbose_name='Product Name')
+    price = models.DecimalField(decimal_places=2, max_digits=6, null=True,verbose_name='Product Price')
+    # 9999.99 4 2bl w 2 b3d kolo mayzedsh 3n 6 
+    # price = models.FloatField()
+    instock = models.BooleanField(default=True,null=True, blank=True)
     description = models.CharField(max_length=200, null=True)
     digital = models.BooleanField(default=False,null=True, blank=True)
     image = models.ImageField(null=True, blank=True)
@@ -44,7 +47,7 @@ class Product(models.Model):
 
 
 class Customer(models.Model):
-    name = models.CharField(max_length=200, null=True)
+    name = models.CharField(max_length=200, null=True,verbose_name='Customer Name')
     # fname = models.CharField(max_length=200, null=True)
     # lname = models.CharField(max_length=200, null=True)
     phone = models.CharField(max_length=200, null=True)
